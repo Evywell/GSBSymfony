@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-3">
+            Liste des visiteurs ({{ visiteurs |length }})
+            <ul>
+                {% for visiteur in visiteurs %}
+                    <li><a class="ajax-call" href="{{ path('comptable_fiches_ajax', { id: visiteur.id }) }}">{{ visiteur.nom | capitalize }} {{ visiteur.prenom | capitalize }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h3 class="count"></h3>
+            <table class="table table-striped hidden">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mois</th>
+                    <th>Nb Justificatifs</th>
+                    <th>Montant Valide</th>
+                    <th>Etat</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        var links = document.querySelectorAll(".ajax-call");
+        var table = document.querySelector('table.table tbody');
+        var counter = document.querySelector('.count');
+        function drawTable(e) {
+            e.preventDefault();
+            var href = this.href;
+            var content = this.innerHTML;
+            var response = "";
+            var req = new XMLHttpRequest();
+            req.open('GET', href, false);
+            req.send(null);
+            response = req.responseText;
+            var parsedResponse = JSON.parse(response).data;
+            var current;
+            table.innerHTML = "";
+            for(var j = 0; j < parsedResponse.length; j++) {
+                current = parsedResponse[j];
+                var tr = document.createElement('tr');
+                var formatedDate = current.mois.substring(4, 2) + "/" + current.mois.substring(0, 4);
+                tr.innerHTML = "<td>" + current.id + "</td><td>" + formatedDate + "</td><td>" + current.nbjustificatifs + "</td><td>" + current.montantvalide + "€</td><td>" + current.Etat.libelle + "</td>";
+                table.appendChild(tr);
+            }
+            counter.innerHTML = "Il y a " + parsedResponse.length + " fiche" + ((parsedResponse.length > 1) ? "s " : "") + " de frais pour <strong>" + content + "</strong>";
+            table.parentNode.classList.remove('hidden');
+        }
+
+        for(var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', drawTable)
+        }
+    </script>
+{% endblock %}

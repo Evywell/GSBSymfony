@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% include 'nav.html.twig' %}
+        <div class="container">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success">
+                    <strong>Bravo!</strong> {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="alert alert-danger">
+                    <strong>Erreur!</strong> {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            <script
+                    src="https://code.jquery.com/jquery-3.2.1.min.js"
+                    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                    crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>mois</th>
+                <th>nb justificatifs</th>
+                <th>montant valide</th>
+                <th>etat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fiche in fiches %}
+                <tr>
+                    <td>{{ fiche.id }}</td>
+                    <td>{{ fiche.FormatedMois }}</td>
+                    <td>{{ fiche.nbjustificatifs }}</td>
+                    <td>{{ fiche.montantvalide }} €</td>
+                    <td>{{ fiche.Etat.libelle }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

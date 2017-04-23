@@ -1,0 +1,15 @@
+visite_homepage:
+    path:     /visiteur
+    defaults: { _controller: AppBundle:Default:comptableIndex }
+
+comptable_homepage:
+    path:     /comptable
+    defaults: { _controller: AppBundle:Default:comptableIndex }
+
+comptable_test:
+    path: /comptable/view/{id}
+    defaults: { _controller: AppBundle:Default:comptableView }
+
+comptable_fiches_ajax:
+    path: /comptable/fiches/{id}
+    defaults: { _controller: AppBundle:Default:comptableAjaxView }
