@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="258c647c-0a57-48eb-9cb9-5b5d5fa55f96" name="LMS PPESymfony" url="http://siolms.pro:83/aleduc/PPESymfony">
+        <fileTransfer host="siolms.pro" port="29" rootFolder="/www/PPESymfony" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="29" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
